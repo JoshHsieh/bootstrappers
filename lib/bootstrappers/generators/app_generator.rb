@@ -87,8 +87,13 @@ module Bootstrappers
     def setup_database
       say 'Setting up database'
 
-      if 'mysql' == options[:database]
+      case options[:database]
+      when 'mysql'
         build :use_mysql_config_template
+      when 'sqlite'
+        build :use_sqlite_config_template
+      when 'postgresql'
+        build :use_postgresql_config_template
       end
 
       build :create_database
